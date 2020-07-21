@@ -156,13 +156,9 @@ export default class MoviesDummyService {
     }
 
     getAllSimilar() {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             setTimeout(() => {
-                if (Math.random() > 0.95) {
-                    reject('Something bad happens');
-                } else {
-                    resolve(this.similar);
-                }
+                resolve(this.similar);
             }, 700);
         });
     }

@@ -23,4 +23,4 @@ const fetchAllSimilar = (dispatch, moviesService) => () => {
         .catch((err) => dispatch(similarMoviesFetchError(err)));
 }
 
-export { fetchAllSimilar };
+export { fetchAllSimilar, similarMoviesRequested };

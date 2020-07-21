@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { fetchAllMovies } from "../store/actions/movie-list";
@@ -9,29 +10,27 @@ import ContentLoader from "../components/content-loader";
 import MovieList from "../components/movie-list";
 
 const MovieListScreen = (props) => {
+    let { navigation, movies, fetchMovies } = props;
 
-    let { navigation, movies, loading, error } = props;
-
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            props.fetchMovies();
-        });
-        return unsubscribe;
-    }, [navigation]);
+    useFocusEffect(
+        useCallback(() => {
+            fetchMovies();
+        }, [])
+    );
 
     return (
         <Screen>
-            <ContentLoader loading={loading} error={error} data={movies}>
+            <ContentLoader {...props}>
                 <MovieList
                     movies={movies}
-                    onViewDetails={(movie) => 
-                            navigation.navigate("MovieDetails", { movie })
-                        }
+                    onViewDetails={(movie) =>
+                        navigation.navigate("MovieDetails", { movie })
+                    }
                 />
             </ContentLoader>
         </Screen>
     );
-}
+};
 
 const mapStateToProps = ({ movieList: { movies, loading, error } }) => {
     return { movies, loading, error };

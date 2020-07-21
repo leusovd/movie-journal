@@ -9,7 +9,6 @@ const movieListReducer = (state, action) => {
 
     switch (action.type) {
         case "FETCH_MOVIES_REQUEST":
-            console.log(state.movieList.movies.length);
             return {
                 movies: [],
                 loading: true,
@@ -17,7 +16,6 @@ const movieListReducer = (state, action) => {
             };
 
         case "FETCH_MOVIES_SUCCESS":
-            console.log(state.movieList.movies.length);
             return {
                 movies: action.payload,
                 loading: false,
@@ -25,7 +23,6 @@ const movieListReducer = (state, action) => {
             };
 
         case "FETCH_MOVIES_FAILURE":
-            console.log(state.movieList.movies.length);
             return {
                 movies: [],
                 loading: false,

@@ -39,7 +39,8 @@ const MovieList = ({ movies, onViewDetails }) => {
                 keyExtractor={({ id }) => id.toString()}
                 renderItem={renderListItem}
                 numColumns={2}
-                columnWrapperStyle={stylesheet.row}            
+                columnWrapperStyle={stylesheet.row}
+                showsVerticalScrollIndicator={false}           
             />
         </View>
     );
@@ -52,7 +53,7 @@ const stylesheet = StyleSheet.create({
     header: {
         paddingLeft: 30,
         paddingTop: 48,
-        paddingBottom: 30
+        paddingBottom: 20
     },
     title: {
         fontFamily: 'open-sans-bold',

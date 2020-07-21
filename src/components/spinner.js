@@ -1,19 +1,23 @@
 import React from "react";
+import colors from '../constants/colors';
 import { StyleSheet, View, Text } from "react-native";
 
-const Spinner = () => {
+const Spinner = ({ color = colors.black }) => {
     return (
         <View style={stylesheet.container}>
-            <Text>loading...</Text>
+            <Text style={{ ...stylesheet.indicatorText, color }}>loading...</Text>
         </View>
     );
 };
 
 const stylesheet = StyleSheet.create({
     container: {
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        height: '100%'
+        justifyContent: 'center'
+    },
+    indicatorText: {
+        color: colors.black
     }
 });
 

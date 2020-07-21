@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from "react-native";
 const ErrorIndicator = () => {
     return (
         <View style={stylesheet.container}>
-            <Text>Error!</Text>
+            <Text style={stylesheet.indicatorText}>Error!</Text>
         </View>
     );
 };
@@ -14,7 +14,8 @@ const stylesheet = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%'
-    }
+    },
+    indicatorText: {}
 });
 
 export default ErrorIndicator;

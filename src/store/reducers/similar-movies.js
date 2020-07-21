@@ -8,7 +8,6 @@ const similarMoviesReducer = (state, action) => {
     }
 
     switch (action.type) {
-
         case "FETCH_SIMILAR_REQUEST":
             return {
                 movies: [],
