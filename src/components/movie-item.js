@@ -1,19 +1,30 @@
 import React from "react";
 import colors from "../constants/colors";
-import { StyleSheet, View, Text, Image } from "react-native";
+import {
+    StyleSheet,
+    View,
+    Text,
+    ImageBackground,
+    TouchableOpacity,
+} from "react-native";
 
-const MovieItem = ({ title, posterSrc, releaseYear }) => {
+const MovieItem = ({ title, posterSrc, releaseYear, onViewDetails }) => {
     return (
-        <View style={stylesheet.container}>
-            <View style={stylesheet.imageContainer}>
-                <Image style={stylesheet.image} source={{ uri: posterSrc }} />
+        <TouchableOpacity activeOpacity={0.8} onPress={onViewDetails}>
+            <View style={stylesheet.container}>
+                <ImageBackground
+                    style={stylesheet.backgroundImage}
+                    source={{ uri: posterSrc }}
+                >
+                    <View style={stylesheet.details}>
+                        <Text style={stylesheet.title}>{title}</Text>
+                        <Text style={stylesheet.releaseYear}>
+                            {releaseYear}
+                        </Text>
+                    </View>
+                </ImageBackground>
             </View>
-
-            <View style={stylesheet.details}>
-                <Text style={stylesheet.title}>{title}</Text>
-                <Text style={stylesheet.releaseYear}>{releaseYear}</Text>
-            </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -24,12 +35,9 @@ const stylesheet = StyleSheet.create({
         backgroundColor: colors.white,
         borderRadius: 15,
         elevation: 10,
-        overflow: "hidden"
+        overflow: "hidden",
     },
-    imageContainer: {
-        borderRadius: 15,
-    },
-    image: {
+    backgroundImage: {
         height: "100%",
     },
     details: {
@@ -43,15 +51,15 @@ const stylesheet = StyleSheet.create({
         backgroundColor: colors.white_089,
     },
     title: {
-        fontFamily: 'open-sans-bold',
+        fontFamily: "open-sans-bold",
         fontSize: 16,
-        lineHeight: 19
+        lineHeight: 19,
     },
     releaseYear: {
-        fontFamily: 'open-sans-light',
+        fontFamily: "open-sans-light",
         fontSize: 14,
-        lineHeight: 17
-    }
+        lineHeight: 17,
+    },
 });
 
 export default MovieItem;

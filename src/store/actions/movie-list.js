@@ -23,4 +23,4 @@ const fetchAllMovies = (dispatch, moviesService) => () => {
         .catch((err) => dispatch(moviesFetchError(err)));
 };
 
-export { fetchAllMovies };
+export { fetchAllMovies, moviesRequested };

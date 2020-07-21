@@ -1,16 +1,13 @@
 import React from "react";
-import { Dimensions, StyleSheet, View } from 'react-native';
-import MovieItem from "../movie-item";
+import { Dimensions, StyleSheet, View } from "react-native";
 
-const ListItem = ({ index, data }) => {
-    
-    const listItemStylesheet = index === 0 || index === 1
-            ? stylesheet.listItemTop
-            : stylesheet.listItem;
+const ListItem = ({ index, children }) => {
+    const listItemStylesheet = index === 0 || index === 1 ?
+        stylesheet.listItemTop : stylesheet.listItem;
 
     return (
         <View style={listItemStylesheet}>
-            <MovieItem {...data} />
+            {children}
         </View>
     );
 };
@@ -26,13 +23,13 @@ const listItemStyles = {
 
 const stylesheet = StyleSheet.create({
     listItem: {
-        ...listItemStyles
+        ...listItemStyles,
     },
     listItemTop: {
         ...listItemStyles,
         height: 230,
-        paddingTop: 10
-    }
-})
+        paddingTop: 10,
+    },
+});
 
 export default ListItem;

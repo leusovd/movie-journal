@@ -1,13 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { MovieListScreen } from "../screens";
+import { MovieListScreen, MovieDetailsScreen } from "../screens";
 
 const navigatorDefaultOpts = {
-    headerShown: false,
-    headerStyle: {
-        backgroundColor: '#fff'
-    }
+    headerShown: false
 };
 
 const { Navigator, Screen } = createStackNavigator();
@@ -19,6 +16,7 @@ const MoviesNavigator = () => {
             screenOptions={navigatorDefaultOpts}
         >
             <Screen name="Movies" component={MovieListScreen} />
+            <Screen name="MovieDetails" component={MovieDetailsScreen} />
         </Navigator>
     );
 };

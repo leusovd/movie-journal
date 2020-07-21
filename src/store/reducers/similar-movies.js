@@ -1,4 +1,4 @@
-const movieListReducer = (state, action) => {
+const similarMoviesReducer = (state, action) => {
     if (state === undefined) {
         return {
             movies: [],
@@ -8,24 +8,22 @@ const movieListReducer = (state, action) => {
     }
 
     switch (action.type) {
-        case "FETCH_MOVIES_REQUEST":
-            console.log(state.movieList.movies.length);
+
+        case "FETCH_SIMILAR_REQUEST":
             return {
                 movies: [],
                 loading: true,
                 error: null,
             };
 
-        case "FETCH_MOVIES_SUCCESS":
-            console.log(state.movieList.movies.length);
+        case "FETCH_SIMILAR_SUCCESS":
             return {
                 movies: action.payload,
                 loading: false,
                 error: null,
             };
 
-        case "FETCH_MOVIES_FAILURE":
-            console.log(state.movieList.movies.length);
+        case "FETCH_SIMILAR_FAILURE":
             return {
                 movies: [],
                 loading: false,
@@ -33,8 +31,8 @@ const movieListReducer = (state, action) => {
             };
 
         default:
-            return state.movieList;
+            return state.similarMovies;
     }
 };
 
-export default movieListReducer;
+export default similarMoviesReducer;

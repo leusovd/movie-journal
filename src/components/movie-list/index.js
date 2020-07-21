@@ -1,18 +1,31 @@
 import React from "react";
 
 import {
-    Dimensions,
     StyleSheet,
     FlatList,
     View,
     Text
 } from "react-native";
 import ListItem from './list-item';
+import MovieItem from "../movie-item";
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, onViewDetails }) => {
+
     const renderListItem = ({ item, index }) => {
+        const { title, posterSrc, releaseYear } = item;
+
         return (
-            <ListItem index={index} data={item} />
+            <ListItem 
+                index={index} 
+                data={item}
+            >
+                <MovieItem
+                    title={title}
+                    posterSrc={posterSrc}
+                    releaseYear={releaseYear}
+                    onViewDetails={() => onViewDetails(Object.assign({}, item))}
+                />
+            </ListItem>
         );
     };
 

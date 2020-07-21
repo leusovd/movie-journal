@@ -1,55 +1,37 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import Constants from 'expo-constants';
 import { fetchAllMovies } from "../store/actions/movie-list";
-import colors from '../constants/colors';
-
-import { StyleSheet, View } from "react-native";
 
 import { withMoviesService } from "../components/hoc";
-import Spinner from "../components/spinner";
-import ErrorIndicator from "../components/error-indicator";
+import Screen from "../components/screen";
+import ContentLoader from "../components/content-loader";
 import MovieList from "../components/movie-list";
 
-class MovieListScreen extends Component {
+const MovieListScreen = (props) => {
 
-    componentDidMount() {
-        this.props.fetchMovies();
-    }
+    let { navigation, movies, loading, error } = props;
 
-    renderContent() {
-        const { movies, loading, error } = this.props;
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            props.fetchMovies();
+        });
+        return unsubscribe;
+    }, [navigation]);
 
-        if (loading) {
-            return <Spinner />;
-        }
-
-        if (error) {
-            return <ErrorIndicator />;
-        }
-
-        return <MovieList movies={movies} />;
-    }
-
-    render() {
-        const content = this.renderContent();
-
-        return (
-            <View style={stylesheet.screen}>
-                <View style={stylesheet.content}>{content}</View>
-            </View>
-        );
-    }
+    return (
+        <Screen>
+            <ContentLoader loading={loading} error={error} data={movies}>
+                <MovieList
+                    movies={movies}
+                    onViewDetails={(movie) => 
+                            navigation.navigate("MovieDetails", { movie })
+                        }
+                />
+            </ContentLoader>
+        </Screen>
+    );
 }
-
-const stylesheet = StyleSheet.create({
-    screen: {
-        height: '100%',
-        paddingTop: Constants.statusBarHeight,
-        backgroundColor: colors.white      
-    }
-});
 
 const mapStateToProps = ({ movieList: { movies, loading, error } }) => {
     return { movies, loading, error };
@@ -57,7 +39,7 @@ const mapStateToProps = ({ movieList: { movies, loading, error } }) => {
 
 const mapDispatchToProps = (dispatch, { moviesService }) => {
     return {
-        fetchMovies: fetchAllMovies(dispatch, moviesService),
+        fetchMovies: fetchAllMovies(dispatch, moviesService)
     };
 };
 

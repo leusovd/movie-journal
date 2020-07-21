@@ -5,5 +5,5 @@ import withMoviesService from "./with-movies-service";
 export {
     withNavigationOptions,
     withCallback,
-    withMoviesService,
+    withMoviesService
 };
