@@ -1,5 +1,5 @@
-import MoviewModel from './movie-model';
+import MovieModel from './movie-model';
 
 export { 
-    MoviewModel
+    MovieModel
 };

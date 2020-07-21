@@ -16,9 +16,9 @@ const similarMoviesFetchError = (error) => {
     };
 };
 
-const fetchAllSimilar = (dispatch, moviesService) => () => {
+const fetchAllSimilar = (dispatch, moviesService, movieId) => () => {
     dispatch(similarMoviesRequested());
-    moviesService.getAllSimilar()
+    moviesService.getAllSimilar(movieId)
         .then((data) => dispatch(similarMoviesLoaded(data)))
         .catch((err) => dispatch(similarMoviesFetchError(err)));
 }

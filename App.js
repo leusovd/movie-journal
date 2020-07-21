@@ -10,9 +10,9 @@ import ErrorBoundary from "./src/components/error-boundary";
 import { MoviesServiceProvider } from "./src/components/movies-service-context";
 import MoviesNavigator from "./src/navigation/movies-navigator";
 
-import MoviesDummyService from "./src/services/movies-dummy-service";
+import MoviesService from './src/services/movies-service';
 
-const moviesService = new MoviesDummyService();
+const moviesService = new MoviesService();
 
 const fetchFonts = () => {
     return loadAsync({

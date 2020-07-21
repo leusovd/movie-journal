@@ -31,6 +31,7 @@ const MovieDetailsScreen = (props) => {
         dropMoviesData,
     } = props;
     const {
+        id: movieId,
         posterSrc,
         rate,
         releaseYear,
@@ -38,12 +39,9 @@ const MovieDetailsScreen = (props) => {
         overview,
     } = route.params.movie;
 
-    let loading = props.loading;
-
     useFocusEffect(
         useCallback(() => {
-            fetchSimilarMovies();
-            loading = true;
+            fetchSimilarMovies(movieId);
         }, [])
     );
 
@@ -87,7 +85,7 @@ const MovieDetailsScreen = (props) => {
                     >
                         Similar movies:
                     </Text>
-                    <ContentLoader {...props} mode="white" loading={loading}>
+                    <ContentLoader {...props} mode="white">
                         <SimilarMovies
                             movies={movies}
                             onViewDetails={(movie) =>
@@ -171,9 +169,9 @@ const mapStateToProps = ({ similarMovies: { movies, loading, error } }) => {
     return { movies, loading, error };
 };
 
-const mapDispatchToProps = (dispatch, { moviesService }) => {
+const mapDispatchToProps = (dispatch, { moviesService, route}) => {
     return {
-        fetchSimilarMovies: fetchAllSimilar(dispatch, moviesService),
+        fetchSimilarMovies: fetchAllSimilar(dispatch, moviesService, route.params.movie.id),
         dropMoviesData: () => dispatch(moviesRequested()),
         dropSimilarMovies: () => dispatch(similarMoviesRequested()),
     };
