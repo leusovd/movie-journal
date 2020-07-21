@@ -1,21 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { AppLoading } from "expo";
+import { loadAsync } from "expo-font";
+import store from "./src/store";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { Provider } from "react-redux";
+import { NavigationContainer } from "@react-navigation/native";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import ErrorBoundary from "./src/components/error-boundary";
+import { MoviesServiceProvider } from "./src/components/movies-service-context";
+import MoviesNavigator from "./src/navigation/movies-navigator";
+
+import MoviesDummyService from "./src/services/movies-dummy-service";
+
+const moviesService = new MoviesDummyService();
+
+const fetchFonts = () => {
+    return loadAsync({
+        "open-sans-light": require("./assets/fonts/OpenSans-Light.ttf"),
+        "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf")
+    });
+};
+
+const App = () => {
+
+    const [fontLoaded, setFontLoaded] = useState(false);
+
+    if (!fontLoaded) {
+        return (
+            <AppLoading
+                startAsync={fetchFonts}
+                onFinish={() => {
+                    setFontLoaded(true);
+                }}
+            />
+        );
+    }
+
+    return (
+        <Provider store={store}>
+            <ErrorBoundary>
+                <MoviesServiceProvider value={moviesService}>
+                    <NavigationContainer>
+                        <MoviesNavigator />
+                    </NavigationContainer>
+                </MoviesServiceProvider>
+            </ErrorBoundary>
+        </Provider>
+    );
+};
+
+export default App;
