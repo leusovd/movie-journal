@@ -3,6 +3,9 @@ import { useFocusEffect } from "@react-navigation/native";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { fetchAllMovies } from "../store/actions/movie-list";
+import colors from '../constants/colors';
+
+import { StatusBar } from 'react-native';
 
 import { withMoviesService } from "../components/hoc";
 import Screen from "../components/screen";
@@ -20,6 +23,7 @@ const MovieListScreen = (props) => {
 
     return (
         <Screen>
+            <StatusBar barStyle="dark-content" backgroundColor={colors.white} translucent={true}/>
             <ContentLoader {...props}>
                 <MovieList
                     movies={movies}

@@ -40,6 +40,7 @@ export default class MoviesService {
     getById(movieId) {
         const { api_key, language } = this.defaultParams;
         const url = `${this.oneMovieBaseUrl}/${movieId}?api_key=${api_key}&language=${language}`;
+        
         return axios
             .get(url)
             .then(({ data }) => this.transformMovie(data));
@@ -48,6 +49,7 @@ export default class MoviesService {
     getAllSimilar(movieId) {
         const { api_key, language, page } = this.defaultParams;
         const url = `${this.oneMovieBaseUrl}/${movieId}/similar?api_key=${api_key}&language=${language}&page=${page}`;
+
         return axios
             .get(url)
             .then(({ data }) => {

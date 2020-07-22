@@ -3,15 +3,16 @@ import colors from '../constants/colors';
 import Spinner from "./spinner";
 import ErrorIndicator from "./error-indicator";
 
-const ContentLoader = ({ loading, error, children, mode = 'black' }) => {
+const ContentLoader = ({ loading, error, children, theme = 'black' }) => {
+
+    const indicatorColor = theme === 'white' ? colors.white : colors.black;
 
     if (loading) {
-        const spinnerColor = mode === 'white' ? colors.white : colors.black;
-        return <Spinner color={spinnerColor} />;
+        return <Spinner color={indicatorColor} />;
     }
 
     if (error) {
-        return <ErrorIndicator />;
+        return <ErrorIndicator color={indicatorColor} />;
     }
 
     return children;
